@@ -1,25 +1,19 @@
-FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS ontology
+FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
+
+LABEL maintainer="ZeroReiNull"
 
 WORKDIR /renewx
 
-RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list \
-    && sed -i 's/security.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list \
-    && apt update \
-    && apt install -y wget unzip\
-    && wget https://list.gladtbam.top/d/%E8%BD%AF%E4%BB%B6/E5/Microsoft365_E5_Renew_X.zip \
-    && unzip Microsoft365_E5_Renew_X.zip -d /renewx \
-    && rm -rf Microsoft365_E5_Renew_X.zip
+COPY Microsoft365_E5_Renew_X/. .
 
 FROM mcr.microsoft.com/dotnet/aspnet:3.1
 
-LABEL MAINTAINER="Cilufer"
+ENV TZ=America/New_York
 
-ENV LANG=zh_CN.UTF-8 \
-    TZ=America/New_York
 WORKDIR /renewx
 
-EXPOSE 1066
+EXPOSE 8066
 
-COPY --from=ontology /renewx /renewx
+COPY --from=base /renewx .
 
 ENTRYPOINT ["dotnet", "Microsoft365_E5_Renew_X.dll"]

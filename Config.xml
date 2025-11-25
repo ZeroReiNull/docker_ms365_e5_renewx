@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuration>
 	<!--站点服务器基本配置-->
 	<Serivce>
 		<!--服务访问端口-->
-		<Port>1066</Port>
+		<Port>8066</Port>
 		<!--管理员密码(管理员登录路由/Admin/Login) 重要：首次启动前必须更改-->
 		<LoginPassword>abcd1234</LoginPassword>
 		<!--是否启用内核多线程支持-->
