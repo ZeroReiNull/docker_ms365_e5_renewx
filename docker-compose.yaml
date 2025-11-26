@@ -8,11 +8,12 @@ services:
     environment:
       - TZ=America/New_York
     volumes:
-      - renewx-deploy:./renewx/Deploy/ # Config location
-      - renewx-appdata:./renewx/appdata/ # Data location
+      - renewx-deploy:/renewx/Deploy/ # Config location
+      - renewx-appdata:/renewx/appdata/ # Data location
     ports:
       - "8066:8066"
 
 volumes:
   renewx-deploy:
+
   renewx-appdata:
