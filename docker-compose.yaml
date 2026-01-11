@@ -1,0 +1,12 @@
+services:
+  renewx:
+    image: xntu/ms365_renewx:latest
+    container_name: renewx
+    restart: unless-stopped
+    ports:
+      - "8066:1066"
+    environment:
+      - TZ=America/New_York
+    volumes:
+      - /renewx/Deploy/:/renewx/Deploy/
+      - /renewx/appdata/:/renewx/appdata/
