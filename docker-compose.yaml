@@ -8,5 +8,5 @@ services:
     environment:
       - TZ=America/New_York
     volumes:
-      - /renewx/Deploy/:/renewx/Deploy/
-      - /renewx/appdata/:/renewx/appdata/
+      - ./Deploy/:/renewx/Deploy/
+      - ./appdata/:/renewx/appdata/
