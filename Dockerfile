@@ -16,5 +16,4 @@ EXPOSE 8066
 
 COPY --from=base /renewx .
 
-
 ENTRYPOINT ["dotnet", "Microsoft365_E5_Renew_X.dll"]
