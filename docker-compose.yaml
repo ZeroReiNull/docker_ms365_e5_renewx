@@ -4,7 +4,7 @@ services:
     container_name: renewx
     restart: unless-stopped
     ports:
-      - "8066:1066"
+      - "8066:8066"
     environment:
       - TZ=America/New_York
     volumes:
