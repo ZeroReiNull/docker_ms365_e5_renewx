@@ -1,19 +1,13 @@
-FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:3.1
 
 LABEL maintainer="ZeroReiNull"
-
-WORKDIR /renewx
-
-COPY Microsoft365_E5_Renew_X/. .
-
-FROM mcr.microsoft.com/dotnet/aspnet:3.1
 
 ENV TZ=America/New_York
 
 WORKDIR /renewx
 
-EXPOSE 8066
+COPY Microsoft365_E5_Renew_X/ ./
 
-COPY --from=base /renewx .
+EXPOSE 1066
 
 ENTRYPOINT ["dotnet", "Microsoft365_E5_Renew_X.dll"]
