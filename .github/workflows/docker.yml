@@ -53,7 +53,17 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Smoke test container
+      - name: Build ARM64 image for smoke test
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/arm64
+          load: true
+          tags: renewx:smoke-arm64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Smoke test AMD64 container
         shell: bash
         run: |
           set -euo pipefail
@@ -104,6 +114,57 @@ jobs:
           done
 
           echo "::error::Login page did not become ready within the test window"
+          exit 1
+
+      - name: Smoke test ARM64 container (QEMU)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test_dir=$(mktemp -d)
+          container_name="renewx-smoke-arm64"
+          cleanup() {
+            status=$?
+            if [ "$status" -ne 0 ]; then
+              echo "::group::ARM64 container diagnostic logs"
+              docker logs "$container_name" 2>&1 || true
+              docker inspect "$container_name" --format '{{json .State}}' || true
+              echo "::endgroup::"
+            fi
+            docker rm -f "$container_name" >/dev/null 2>&1 || true
+            sudo rm -rf -- "$test_dir" || true
+          }
+          trap cleanup EXIT
+
+          cp -a Deploy "$test_dir/Deploy"
+          mkdir -p "$test_dir/appdata"
+          password=$(openssl rand -hex 24)
+          sed -i "s|<LoginPassword>[^<]*</LoginPassword>|<LoginPassword>$password</LoginPassword>|" "$test_dir/Deploy/Config.xml"
+
+          docker run -d --platform linux/arm64 --name "$container_name" \
+            -p 127.0.0.1:8066:8066 \
+            -v "$test_dir/Deploy:/renewx/Deploy" \
+            -v "$test_dir/appdata:/renewx/appdata" \
+            renewx:smoke-arm64
+
+          for attempt in {1..60}; do
+            if [ "$(docker inspect --format '{{.State.Running}}' "$container_name")" != "true" ]; then
+              echo "::error::ARM64 container exited before becoming ready"
+              exit 1
+            fi
+
+            if curl -fsSL --max-time 8 \
+              -o "$test_dir/login.html" \
+              http://127.0.0.1:8066/Admin/Login 2>/dev/null \
+              && [ -s "$test_dir/login.html" ]; then
+              echo "ARM64 smoke test passed: container running and login page responds on port 8066"
+              exit 0
+            fi
+
+            sleep 2
+          done
+
+          echo "::error::ARM64 login page did not become ready"
           exit 1
 
       - name: Log in to GHCR
