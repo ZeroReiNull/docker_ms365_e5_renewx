@@ -25,6 +25,6 @@ docker compose logs -f   # View logs
 docker compose down      # Stop
 ```
 
-> **Note:** The Dockerfile uses the unsupported .NET Core 3.1 runtime. The default Compose port mapping (`8066:1066`) is publicly bound; use `127.0.0.1:8066:1066` if accessing through a reverse proxy on the same host. Back up `Deploy/` and `appdata/` before updating.
+> **Note:** The Dockerfile uses the unsupported .NET Core 3.1 runtime. The default Compose port mapping (`8066:8066`) is publicly bound; use `127.0.0.1:8066:8066` if accessing through a reverse proxy on the same host. Back up `Deploy/` and `appdata/` before updating.
 
 Credits: **SundayRX** and the original E5 Renew X contributors.
