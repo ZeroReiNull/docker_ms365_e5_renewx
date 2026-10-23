@@ -1,6 +1,6 @@
 services:
   renewx:
-    image: xntu/ms365_renewx:latest
+    image: ghcr.io/zeroreinull/docker_ms365_e5_renewx:latest
     container_name: renewx
     restart: unless-stopped
     ports:
