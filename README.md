@@ -1,30 +1,45 @@
-# Microsoft 365 E5 Renew X — Docker
+# Microsoft 365 E5 Renew X · Docker
 
-Unofficial Docker deployment for **SundayRX's Microsoft 365 E5 Renew X**.
+Docker image for [Microsoft 365 E5 Renew X](https://github.com/ZeroReiNull/docker_ms365_e5_renewx), originally developed by SundayRX.
 
 ## Quick start
 
-```bash
-git clone https://github.com/ZeroReiNull/docker_ms365_e5_renewx.git
-cd docker_ms365_e5_renewx
-docker compose up -d
-```
+1. Clone the repository and enter the directory:
 
-Before starting, **change the default administrator password** in `Deploy/Config.xml` (`LoginPassword`). No need to create `appdata/` manually; Docker Compose creates it automatically.
+   ```bash
+   git clone https://github.com/ZeroReiNull/docker_ms365_e5_renewx.git
+   cd docker_ms365_e5_renewx
+   ```
 
-Access the service at **http://localhost:8066** (admin login: `/Admin/Login`).
+2. **Change `LoginPassword`** in `Deploy/Config.xml` before starting.
+3. Launch the container:
+
+   ```bash
+   docker compose up -d
+   ```
+
+Open **http://localhost:8066** · [Admin login](http://localhost:8066/Admin/Login)
 
 ## Configuration
 
-- `Deploy/Config.xml` — application settings
-- `appdata/` — persistent data
-- `docker-compose.yaml` — ports, volumes and image (`ghcr.io/zeroreinull/docker_ms365_e5_renewx:latest`)
+| Path | Purpose |
+| --- | --- |
+| `Deploy/Config.xml` | Application settings |
+| `appdata/` | Persistent data (created automatically) |
+| `docker-compose.yaml` | Image, port and volumes |
+
+## Commands
 
 ```bash
-docker compose logs -f   # View logs
-docker compose down      # Stop
+docker compose logs -f    # Logs
+docker compose pull       # Pull latest image
+docker compose up -d      # Start / update
+docker compose down       # Stop
 ```
 
-> **Note:** The Dockerfile uses the unsupported .NET Core 3.1 runtime. The default Compose port mapping (`8066:8066`) is publicly bound; use `127.0.0.1:8066:8066` if accessing through a reverse proxy on the same host. Back up `Deploy/` and `appdata/` before updating.
+> [!IMPORTANT]
+> This image uses **.NET Core 3.1**, which is no longer supported. The default port `8066` is bound to all host interfaces; for local-only access, change the Compose port mapping to `127.0.0.1:8066:8066`. Back up `Deploy/` and `appdata/` before updating.
 
-Credits: **SundayRX** and the original E5 Renew X contributors.
+## Credits
+
+Unofficial Docker packaging of SundayRX's Microsoft 365 E5 Renew X. Thanks to the original contributors.
