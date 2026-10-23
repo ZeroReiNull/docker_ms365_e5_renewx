@@ -18,7 +18,7 @@ Access the service at **http://localhost:8066** (admin login: `/Admin/Login`).
 
 - `Deploy/Config.xml` — application settings
 - `appdata/` — persistent data
-- `docker-compose.yaml` — ports, volumes and image (`xntu/ms365_renewx:latest`)
+- `docker-compose.yaml` — ports, volumes and image (`ghcr.io/zeroreinull/docker_ms365_e5_renewx:latest`)
 
 ```bash
 docker compose logs -f   # View logs
