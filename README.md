@@ -18,7 +18,7 @@ Docker image for [Microsoft 365 E5 Renew X](https://github.com/ZeroReiNull/docke
    docker compose up -d
    ```
 
-Open **http://localhost:8066** · [Admin login](http://localhost:8066/Admin/Login)
+Open **http://localhost:8066**
 
 ## Configuration
 
