@@ -16,4 +16,6 @@ EXPOSE 8066
 
 COPY --from=base /renewx .
 
+RUN mkdir -p /renewx/Deploy /renewx/appdata
+
 ENTRYPOINT ["dotnet", "Microsoft365_E5_Renew_X.dll"]
