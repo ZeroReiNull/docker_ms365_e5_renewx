@@ -1,6 +1,6 @@
 # Microsoft 365 E5 Renew X · Docker
 
-Docker image for [Microsoft 365 E5 Renew X](https://github.com/ZeroReiNull/docker_ms365_e5_renewx), originally developed by SundayRX.
+An unofficial Docker package for [Microsoft 365 E5 Renew X](https://github.com/ZeroReiNull/docker_ms365_e5_renewx), originally developed by SundayRX. Renew X automates Microsoft Graph API activity to help keep Microsoft 365 E5 developer subscriptions active; renewal is determined by Microsoft and is not guaranteed.
 
 ## Quick start
 
